@@ -27,8 +27,7 @@ const Formulario = ({crearCita}) => {
 
     // Cuando el usuario presiona agregar cita
     const submitCita = e => {
-        e.preventDefault();
-        console.log(cita)
+        e.preventDefault();        
 
         // Validar
         if(mascota.trim() === '' || propietario.trim() === ''  || fecha.trim() === ''  || hora.trim() === ''  || sintomas.trim() === '' ){
@@ -40,6 +39,8 @@ const Formulario = ({crearCita}) => {
 
         // Asignar un ID
         cita.id = uuidv4();
+
+        console.log(cita)
 
         // Crear la cita
         crearCita(cita);
@@ -92,6 +93,7 @@ const Formulario = ({crearCita}) => {
                     className="u-full-width"
                     onChange={actualizarState}
                     value={fecha}
+                    data-testid="fecha"
                 />
 
                 <label>Hora</label>
@@ -101,6 +103,7 @@ const Formulario = ({crearCita}) => {
                     className="u-full-width"
                     onChange={actualizarState}
                     value={hora}
+                    data-testid="hora"
                 />
 
                 <label>Síntomas</label>
@@ -109,6 +112,7 @@ const Formulario = ({crearCita}) => {
                     name="sintomas"
                     onChange={actualizarState}
                     value={sintomas}
+                    data-testid="sintomas"
                 ></textarea>
 
                 <button

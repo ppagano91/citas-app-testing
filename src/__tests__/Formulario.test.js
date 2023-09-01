@@ -2,6 +2,7 @@ import React from "react";
 import Formulario from "../components/Formulario";
 import { render, screen, clean, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
+import userEvent from "@testing-library/user-event";
 
 const crearCita = jest.fn();
 
@@ -80,4 +81,26 @@ test("<Formulario/> Validación de formulario con FireEvent", () => {
     const btnSubmit = screen.getByTestId("btn-submit");
     fireEvent.click(btnSubmit);
 
+})
+
+test("<Formulario/> Validación de formulario con userEvent", () => {
+    render(<Formulario crearCita={crearCita}/>);
+
+    userEvent.type(screen.getByTestId("mascota"), "Hook");
+    userEvent.type(screen.getByTestId("propietario"), "Juan");
+    userEvent.type(screen.getByTestId("fecha"), "2023-09-01");
+    userEvent.type(screen.getByTestId("hora"), "10:30");
+    userEvent.type(screen.getByTestId("sintomas"), "Solo duerme");
+
+    const btnSubmit = screen.getByTestId("btn-submit");
+    userEvent.click(btnSubmit);
+
+    // Revisar por la alerta
+    const alerta = screen.queryByTestId("alerta");
+    expect(alerta).not.toBeInTheDocument();
+
+    // Crear cita y revisar por la función
+    
+    // expect(crearCita).toHaveBeenCalled();
+    expect(crearCita).toHaveBeenCalledTimes(1);
 })
