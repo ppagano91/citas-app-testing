@@ -52,7 +52,8 @@ function App() {
               />
           </div>
           <div className="one-half column">
-              <h2>{titulo}</h2>
+              <h2 data-testid="titulo-dinamico"
+              >{titulo}</h2>
               {citas.map(cita => (
                 <Cita
                   key={cita.id}
