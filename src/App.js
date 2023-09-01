@@ -40,7 +40,9 @@ function App() {
 
   return (
     <Fragment>
-      <h1>Administrador de Pacientes</h1>
+      <h1
+        data-testid="nombre-app"
+      >Administrador de Pacientes</h1>
 
       <div className="container">
         <div className="row">
