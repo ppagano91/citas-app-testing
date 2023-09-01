@@ -65,3 +65,19 @@ test("<Formulario/> Validación de formulario", () => {
     // expect(crearCita).toHaveBeenCalled();
     // expect(crearCita).toHaveBeenCalledWith("Hola");
 });
+
+test("<Formulario/> Validación de formulario con FireEvent", () => {
+    render(<Formulario crearCita={crearCita}/>);
+
+    fireEvent.change(screen.getByTestId("mascota"), {
+        target: { value: "Hook" }
+    })
+
+    fireEvent.change(screen.getByTestId("propietario"), {
+        target: { value: "Juan" }
+    })
+
+    const btnSubmit = screen.getByTestId("btn-submit");
+    fireEvent.click(btnSubmit);
+
+})

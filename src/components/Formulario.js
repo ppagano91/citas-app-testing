@@ -28,6 +28,7 @@ const Formulario = ({crearCita}) => {
     // Cuando el usuario presiona agregar cita
     const submitCita = e => {
         e.preventDefault();
+        console.log(cita)
 
         // Validar
         if(mascota.trim() === '' || propietario.trim() === ''  || fecha.trim() === ''  || hora.trim() === ''  || sintomas.trim() === '' ){
@@ -70,6 +71,7 @@ const Formulario = ({crearCita}) => {
                     placeholder="Nombre Mascota"
                     onChange={actualizarState}
                     value={mascota}
+                    data-testid="mascota"
                 />
 
                 <label>Nombre Dueño</label>
@@ -80,6 +82,7 @@ const Formulario = ({crearCita}) => {
                     placeholder="Nombre  Dueño de la mascota"
                     onChange={actualizarState}
                     value={propietario}
+                    data-testid="propietario"
                 />
 
                 <label>Fecha</label>
