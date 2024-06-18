@@ -20,7 +20,7 @@ test("<App/ >La aplicación funciona correctamente la primera vez", () => {
 
 });
 
-test("<App/> Completar Formulario funciona correctamente", () => {
+test("<App/> Agregar una cita correctamente y verificar el Heading", () => {
 
     render(<App />);
 
@@ -40,4 +40,48 @@ test("<App/> Completar Formulario funciona correctamente", () => {
     // Revision por el titulo dinamico
     expect(screen.getByTestId("titulo-dinamico").textContent).toBe("Administra tus Citas");
     expect(screen.getByTestId("titulo-dinamico").textContent).not.toBe("No hay citas");
+})
+
+test("<App/> Verificar las citas en el DOM", async () => {
+    render(<App />);
+
+    const citas = await screen.findAllByTestId("cita");
+    // console.log(citas.toString());
+    
+    // Snapshot crea un archivo que se llama __snapshots__ y se guarda el html
+    // expect(citas).toMatchSnapshot();
+    expect(citas).toHaveLength(1);
+
+    expect(screen.getByTestId("btn-eliminar")).toBeInTheDocument();
+    expect(screen.getByTestId("btn-eliminar").tagName).toBe("BUTTON");
+    expect(screen.getByTestId("btn-eliminar")).toHaveTextContent("Eliminar");
+
+    // Verificar alguna cita
+    expect(screen.getByText("Hook")).toBeInTheDocument();
+
+    
+})
+
+test("<App/> Eliminar la cita", () => {
+    render(<App />);
+
+    const btnEliminar = screen.getByTestId("btn-eliminar");
+    expect(btnEliminar).toBeInTheDocument();
+    expect(screen.getByTestId("btn-eliminar").tagName).toBe("BUTTON");
+    expect(btnEliminar).toHaveTextContent("Eliminar");
+
+    // Simular el click
+    userEvent.click(btnEliminar);
+
+    // El boton ya no debe estar
+    expect(btnEliminar).not.toBeInTheDocument();
+
+    // La cita ya no debe estar
+    expect(screen.queryByText("Hook")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("cita")).not.toBeInTheDocument();
+
+    // El titulo debe de cambiar a "No hay citas"
+    expect(screen.getByTestId("titulo-dinamico").textContent).toBe("No hay citas");
+    expect(screen.getByTestId("titulo-dinamico").textContent).not.toBe("Administra tus Citas");
+
 })
